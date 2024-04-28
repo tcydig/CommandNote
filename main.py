@@ -1,8 +1,9 @@
 import flet as ft
-
+from src.data_store import DataStore
+from src.command_note import CommandNote
 
 def main(page: ft.Page):
-    page.add(ft.SafeArea(ft.Text("Hello, Flet!")))
+    page.title = 'command note'
+    CommandNote(page,DataStore())
 
-
-ft.app(main)
+ft.app(target=main)

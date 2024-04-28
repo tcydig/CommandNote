@@ -1,11 +1,16 @@
 import os
 import json
 class DataStore():
-    def __init__(self):    
-        with open(os.path.dirname(os.path.realpath(__file__)) + '\store.json',encoding="utf-8") as json_file:
-            self.original_store = json.load(json_file)
-        self.selected_first_menu = self.getFirstMenuList()[0]
-        self.selected_second_menu = self.getSecondMenuList()[0]
+    def __init__(self):
+        self.dir_path=os.getenv('LOCALAPPDATA')+'\\CommandNote'
+        self.file_name='store.json'
+        try:
+            self.getStoreJson()
+        except:
+            self.createAppLocalFolder()
+            self.getStoreJson()
+        self.selected_first_menu = '' if len(self.getFirstMenuList())==0 else self.getFirstMenuList()[0]
+        self.selected_second_menu = '' if len(self.getSecondMenuList())==0 else self.getSecondMenuList()[0]
 
     def getSelectedFirstMenu(self):
         return self.selected_first_menu
@@ -19,8 +24,25 @@ class DataStore():
     def getFirstMenuList(self):
         return [key for key in self.original_store.keys()]
     def getSecondMenuList(self):
-        return [key for key in self.original_store[self.getSelectedFirstMenu()].keys()]
+        if (self.getSelectedFirstMenu() in self.original_store):
+            return [key for key in self.original_store[self.getSelectedFirstMenu()].keys()]
+        else:
+            return []
     def getNote(self):
-        return self.original_store[self.getSelectedFirstMenu()][self.getSelectedSecondMenu()]
+        if (self.getSelectedFirstMenu() in self.original_store and self.getSelectedSecondMenu() in self.original_store[self.getSelectedFirstMenu()]):
+            return self.original_store[self.getSelectedFirstMenu()][self.getSelectedSecondMenu()]
+        else:
+            return {}
     def getStage(self,index):
         return self.original_store[self.getSelectedFirstMenu()][self.getSelectedSecondMenu()]['stage'][index]
+    
+    def createAppLocalFolder(self):
+        try:
+            os.makedirs(self.dir_path, exist_ok=True)
+            with open(f'{self.dir_path}\\{self.file_name}','w') as file:
+                json.dump({}, file)
+        except Exception as e:
+            print(f'エラーが発生しました: {e}')
+    def getStoreJson(self):
+        with open(f'{self.dir_path}\\{self.file_name}',encoding="utf-8") as json_file:
+            self.original_store = json.load(json_file)

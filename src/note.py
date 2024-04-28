@@ -14,36 +14,43 @@ class Note(ft.Container):
 
         self.note_content = self.store.getNote()
 
-        self.title=ft.Text(self.note_content['title'],color=ft.colors.BLACK,size=35,weight=ft.FontWeight.W_600)
-        self.summary=ft.Text(self.note_content['summary'],color=ft.colors.BLACK,size=20,weight=ft.FontWeight.W_400)
-        self.note_stage=self.create_stage()
-        self.content=ft.Column(
-            controls=[
-                self.title,
-                self.summary,
-                ft.Container(
-                    ft.Column(
-                        controls=self.note_stage
+        if (any(self.note_content)):
+            self.title=ft.Text(self.note_content['title'],color=ft.colors.BLACK,size=35,weight=ft.FontWeight.W_600)
+            self.summary=ft.Text(self.note_content['summary'],color=ft.colors.BLACK,size=20,weight=ft.FontWeight.W_400)
+            self.note_stage=self.create_stage()
+            self.content=ft.Column(
+                controls=[
+                    self.title,
+                    self.summary,
+                    ft.Container(
+                        ft.Column(
+                            controls=self.note_stage
+                        )
                     )
-                )
-            ]
-        )
+                ]
+            )
+        else:
+            pass
     def create_stage(self):
         return [NoteStage(i,self.store,self.page) for i in range(len(self.note_content['stage'])) ]
     def change_content(self):
         self.note_content=self.store.getNote()
-        self.title=ft.Text(self.note_content['title'],color=ft.colors.BLACK,size=35,weight=ft.FontWeight.W_600)
-        self.summary=ft.Text(self.note_content['summary'],color=ft.colors.BLACK,size=20,weight=ft.FontWeight.W_400)
-        self.note_stage=self.create_stage()
-        
-        self.content=ft.Column(
-            controls=[
-                self.title,
-                self.summary,
-                ft.Container(
-                    ft.Column(
-                        controls=self.note_stage
+
+        if (any(self.note_content)):
+            self.title=ft.Text(self.note_content['title'],color=ft.colors.BLACK,size=35,weight=ft.FontWeight.W_600)
+            self.summary=ft.Text(self.note_content['summary'],color=ft.colors.BLACK,size=20,weight=ft.FontWeight.W_400)
+            self.note_stage=self.create_stage()
+            
+            self.content=ft.Column(
+                controls=[
+                    self.title,
+                    self.summary,
+                    ft.Container(
+                        ft.Column(
+                            controls=self.note_stage
+                        )
                     )
-                )
-            ]
-        )
+                ]
+            )
+        else:
+            pass

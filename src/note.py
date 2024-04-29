@@ -21,7 +21,7 @@ class Note(ft.Container):
             self.content=ft.Column(
                 controls=[
                     ft.Container(
-                        content=ft.IconButton(icon=ft.icons.EDIT_NOTE_OUTLINED,icon_color=ft.colors.BLUE_GREY),
+                        content=ft.IconButton(icon=ft.icons.EDIT_NOTE_OUTLINED,icon_color=ft.colors.BLUE_GREY,on_click=self.edit_note),
                         alignment=ft.alignment.center_left,
                         padding=-10
                     ),
@@ -48,6 +48,11 @@ class Note(ft.Container):
             
             self.content=ft.Column(
                 controls=[
+                    ft.Container(
+                        content=ft.IconButton(icon=ft.icons.EDIT_NOTE_OUTLINED,icon_color=ft.colors.BLUE_GREY,on_click=self.edit_note),
+                        alignment=ft.alignment.center_left,
+                        padding=-10
+                    ),
                     self.title,
                     self.summary,
                     ft.Container(
@@ -103,4 +108,41 @@ class Note(ft.Container):
         self.page.update()
     def add_stage(self,e):
         self.stageList.append(EditNoteStage(len(self.stageList),self.store,self.page))
+        self.page.update()
+    def edit_note(self,e):
+        self.title=ft.TextField(label='Title',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=400,value=self.title.value)
+        self.summary=ft.TextField(label='Summary',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=700,value=self.summary.value)
+        self.stageList=[EditNoteStage(i,self.store,self.page,self.note_content['stage'][i]) for i in range(len(self.note_content['stage']))]
+        self.content=ft.Column(
+            controls=[
+                ft.Row(
+                    controls=[
+                        ft.ElevatedButton(text="Save", on_click=self.modify_note),
+                        ft.ElevatedButton(text="Cancel", on_click=self.cancel_enter)
+                    ]
+                ),
+                self.title,
+                self.summary,
+                ft.Container(
+                    ft.Column(
+                        controls=self.stageList,
+                    )
+                ),
+                ft.Container(
+                    ft.IconButton(icon=ft.icons.ADD_CIRCLE,icon_color=ft.colors.BLUE,icon_size=30,on_click=self.add_stage),
+                    alignment=ft.alignment.center
+                )
+            ],
+            scroll=ft.ScrollMode.ALWAYS,
+            height=1000
+        )
+        self.page.update()
+    def modify_note(self,e):
+        stageList=[{"subTitle":stage.sub_title.value,"cmd":stage.command.value,"description":stage.description.value} for stage in self.stageList]
+        self.store.setModifiedNote({
+            "title":self.title.value,
+            "summary":self.summary.value,
+            "stage":stageList,
+        })
+        self.change_content()
         self.page.update()

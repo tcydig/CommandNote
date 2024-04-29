@@ -26,7 +26,7 @@ class NoteStage(ft.Container):
                 ft.Container(
                     ft.Row(
                         controls=[
-                            ft.IconButton(icon=ft.icons.CONTENT_COPY,on_click=self.clicked_copy()),
+                            ft.IconButton(icon=ft.icons.CONTENT_COPY,on_click=self.clicked_copy),
                             ft.Text(self.stage['cmd'],color=ft.colors.WHITE,bgcolor=ft.colors.TRANSPARENT,selectable=True),
                         ]  
                     ),
@@ -38,5 +38,5 @@ class NoteStage(ft.Container):
                 ft.Text(self.stage['description'],color=ft.colors.BLACK)
             ]
         )
-    def clicked_copy(self):
+    def clicked_copy(self,e):
         subprocess.run("clip", input=self.stage['cmd'], text=True)

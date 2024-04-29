@@ -6,9 +6,8 @@ class Note(ft.Container):
         super().__init__()
         self.store = store
         self.page = page
-
+        self.padding=10
         self.bgcolor=ft.colors.GREY_400
-        self.padding=30
         self.alignment=ft.alignment.center_left
         self.expand=True
 
@@ -20,6 +19,11 @@ class Note(ft.Container):
             self.note_stage=self.create_stage()
             self.content=ft.Column(
                 controls=[
+                    ft.Container(
+                        content=ft.IconButton(icon=ft.icons.EDIT_NOTE_OUTLINED,icon_color=ft.colors.BLUE_GREY),
+                        alignment=ft.alignment.center_left,
+                        padding=-10
+                    ),
                     self.title,
                     self.summary,
                     ft.Container(
@@ -53,4 +57,4 @@ class Note(ft.Container):
                 ]
             )
         else:
-            pass
+            self.content=ft.Column()

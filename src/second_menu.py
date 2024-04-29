@@ -10,14 +10,23 @@ class SecondMenu(ft.Container,menuBase):
         self.store:DataStore = store
         self.page = page
         self.bgcolor = ft.colors.BLUE_GREY_600
-        self.width = 150
+        self.width = 180
         menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked)
 
         self.content = ft.Column(
-            controls=menuList,
-            alignment=ft.MainAxisAlignment.START,
-            horizontal_alignment=ft.CrossAxisAlignment.START
+            controls=[
+                ft.Container(
+                    content=ft.IconButton(icon=ft.icons.ADD_BOX),
+                    alignment=ft.alignment.center_right
+                ),
+                ft.Column(
+                    controls=menuList,
+                    alignment=ft.MainAxisAlignment.START,
+                    horizontal_alignment=ft.CrossAxisAlignment.START
+                )
+            ]
         )
+
     def button_clicked(self, e):
         # コンテンツ領域の切り替え
         self.store.setSelectedSecondMenu(e.control.data)
@@ -28,7 +37,7 @@ class SecondMenu(ft.Container,menuBase):
     def change_content(self):
         # 呼び出し元にてself.page.updateを実施
         menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked)
-        self.store.setSelectedSecondMenu(menuList[0].data)
+        self.store.setSelectedSecondMenu('' if len(menuList)==0 else menuList[0].data)
         self.content = ft.Column(
             controls=menuList,
             alignment=ft.MainAxisAlignment.START,

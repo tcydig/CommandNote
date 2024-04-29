@@ -46,3 +46,13 @@ class DataStore():
     def getStoreJson(self):
         with open(f'{self.dir_path}\\{self.file_name}',encoding="utf-8") as json_file:
             self.original_store = json.load(json_file)
+    def setNewFirstMenu(self,value):
+        if (value in self.original_store): return
+        self.original_store[value]={}
+        try:
+            with open(f'{self.dir_path}\\{self.file_name}', 'w',encoding="utf-8") as file:
+                json.dump(self.original_store, file, indent=4)
+            self.getStoreJson()
+        except Exception as e:
+            print(f'エラーが発生しました: {e}')
+

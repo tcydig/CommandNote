@@ -1,3 +1,4 @@
+import re
 import flet as ft
 from .data_store import DataStore
 from .menu_base import menuBase
@@ -16,7 +17,7 @@ class SecondMenu(ft.Container,menuBase):
         self.content = ft.Column(
             controls=[
                 ft.Container(
-                    content=ft.IconButton(icon=ft.icons.ADD_BOX),
+                    content=ft.IconButton(icon=ft.icons.ADD_BOX,on_click=lambda x: self.note.add_new_content(self.change_content)),
                     alignment=ft.alignment.center_right
                 ),
                 ft.Column(
@@ -39,8 +40,33 @@ class SecondMenu(ft.Container,menuBase):
         menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked)
         self.store.setSelectedSecondMenu('' if len(menuList)==0 else menuList[0].data)
         self.content = ft.Column(
-            controls=menuList,
-            alignment=ft.MainAxisAlignment.START,
-            horizontal_alignment=ft.CrossAxisAlignment.START
+            controls=[
+                ft.Container(
+                    content=ft.IconButton(icon=ft.icons.ADD_BOX,on_click=lambda x: self.note.add_new_content(self.add_new_content)),
+                    alignment=ft.alignment.center_right
+                ),
+                ft.Column(
+                    controls=menuList,
+                    alignment=ft.MainAxisAlignment.START,
+                    horizontal_alignment=ft.CrossAxisAlignment.START
+                )
+            ]
+        )
+        self.note.change_content()
+    def add_new_content(self):
+        # 呼び出し元にてself.page.updateを実施
+        menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked)
+        self.content = ft.Column(
+            controls=[
+                ft.Container(
+                    content=ft.IconButton(icon=ft.icons.ADD_BOX,on_click=lambda x: self.note.add_new_content(self.add_new_content)),
+                    alignment=ft.alignment.center_right
+                ),
+                ft.Column(
+                    controls=menuList,
+                    alignment=ft.MainAxisAlignment.START,
+                    horizontal_alignment=ft.CrossAxisAlignment.START
+                )
+            ]
         )
         self.note.change_content()

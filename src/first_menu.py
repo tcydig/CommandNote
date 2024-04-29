@@ -67,7 +67,6 @@ class FirstMenu(ft.Container,menuBase):
         self.page.update()
     def hide_input_area(self):
         self.content.controls=self.content.controls[:2]
-        # self.page.update()
     def getFirstMenu(self):
         self.menuList = menuBase.createMenuList(self.store.getFirstMenuList(),self.button_clicked)
 

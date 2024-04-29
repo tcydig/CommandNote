@@ -55,4 +55,13 @@ class DataStore():
             self.getStoreJson()
         except Exception as e:
             print(f'エラーが発生しました: {e}')
+    def setNewSecondMenu(self,new_value):
+        if (new_value['title'] in self.original_store[self.getSelectedFirstMenu()]): return
+        self.original_store[self.getSelectedFirstMenu()].update({new_value['title']:new_value})
+        try:
+            with open(f'{self.dir_path}\\{self.file_name}', 'w',encoding="utf-8") as file:
+                json.dump(self.original_store, file, indent=4)
+            self.getStoreJson()
+        except Exception as e:
+            print(f'エラーが発生しました: {e}')
 

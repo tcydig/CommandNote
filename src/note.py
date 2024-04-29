@@ -1,6 +1,7 @@
 import flet as ft
 from .data_store import DataStore
 from .note_stage import NoteStage
+from .edit_note_stage import EditNoteStage
 class Note(ft.Container):
     def __init__(self,store:DataStore,page:ft.Page):
         super().__init__()
@@ -58,3 +59,48 @@ class Note(ft.Container):
             )
         else:
             self.content=ft.Column()
+    def add_new_content(self,change_second_menu_function):
+        self.change_second_menu_function=change_second_menu_function
+        self.title=ft.TextField(label='Title',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=400)
+        self.summary=ft.TextField(label='Summary',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=700)
+        self.stageList=[EditNoteStage(0,self.store,self.page)]
+        self.content=ft.Column(
+            controls=[
+                ft.Row(
+                    controls=[
+                        ft.ElevatedButton(text="Save", on_click=self.complete_enter),
+                        ft.ElevatedButton(text="Cancel", on_click=self.cancel_enter)
+                    ]
+                ),
+                self.title,
+                self.summary,
+                ft.Container(
+                    ft.Column(
+                        controls=self.stageList,
+                    )
+                ),
+                ft.Container(
+                    ft.IconButton(icon=ft.icons.ADD_CIRCLE,icon_color=ft.colors.BLUE,icon_size=30,on_click=self.add_stage),
+                    alignment=ft.alignment.center
+                )
+            ],
+            scroll=ft.ScrollMode.ALWAYS,
+            height=1000
+        )
+        self.page.update()
+    def cancel_enter(self,e):
+        self.change_content()
+        self.page.update()
+    def complete_enter(self,e):
+        stageList=[{"subTitle":stage.sub_title.value,"cmd":stage.command.value,"description":stage.description.value} for stage in self.stageList]
+        self.store.setNewSecondMenu({
+            "title":self.title.value,
+            "summary":self.summary.value,
+            "stage":stageList,
+        })
+        self.store.setSelectedSecondMenu(self.title.value)
+        self.change_second_menu_function()
+        self.page.update()
+    def add_stage(self,e):
+        self.stageList.append(EditNoteStage(len(self.stageList),self.store,self.page))
+        self.page.update()

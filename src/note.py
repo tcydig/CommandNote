@@ -68,7 +68,7 @@ class Note(ft.Container):
         self.change_second_menu_function=change_second_menu_function
         self.title=ft.TextField(label='Title',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=400)
         self.summary=ft.TextField(label='Summary',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=700)
-        self.stageList=[EditNoteStage(0,self.store,self.page)]
+        self.stageList=[EditNoteStage(0,self,self.store,self.page)]
         self.content=ft.Column(
             controls=[
                 ft.Row(
@@ -107,12 +107,12 @@ class Note(ft.Container):
         self.change_second_menu_function()
         self.page.update()
     def add_stage(self,e):
-        self.stageList.append(EditNoteStage(len(self.stageList),self.store,self.page))
+        self.stageList.append(EditNoteStage(len(self.stageList),self,self.store,self.page))
         self.page.update()
     def edit_note(self,e):
         self.title=ft.TextField(label='Title',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=400,value=self.title.value)
         self.summary=ft.TextField(label='Summary',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=700,value=self.summary.value)
-        self.stageList=[EditNoteStage(i,self.store,self.page,self.note_content['stage'][i]) for i in range(len(self.note_content['stage']))]
+        self.stageList=[EditNoteStage(i,self,self.store,self.page,self.note_content['stage'][i]) for i in range(len(self.note_content['stage']))]
         self.content=ft.Column(
             controls=[
                 ft.Row(
@@ -145,4 +145,7 @@ class Note(ft.Container):
             "stage":stageList,
         })
         self.change_content()
+        self.page.update()
+    def delete_stage(self,index):
+        self.stageList.pop(index)
         self.page.update()

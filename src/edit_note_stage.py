@@ -12,7 +12,7 @@ class EditNoteStage(ft.Container):
         self.bgcolor=ft.colors.TRANSPARENT
 
 
-        self.sub_title=ft.TextField(label='subTitle',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,height=50,value=initial_value['subTitle'])
+        self.sub_title=ft.TextField(label='SubTitle',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,height=50,value=initial_value['subTitle'])
         self.command=ft.TextField(label='Command',color=ft.colors.WHITE,bgcolor=ft.colors.TRANSPARENT,height=50,value=initial_value['cmd'])
         self.description=ft.TextField(label='Description',multiline=True,max_lines=10,bgcolor=ft.colors.WHITE,color=ft.colors.BLACK,value=initial_value['description'])
 

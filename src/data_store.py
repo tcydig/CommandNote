@@ -81,3 +81,11 @@ class DataStore():
             self.getStoreJson()
         except Exception as e:
             print(f'エラーが発生しました: {e}')
+    def deleteScondMenu(self,value):
+        try:
+            self.original_store[self.getSelectedFirstMenu()].pop(value)
+            with open(f'{self.dir_path}\\{self.file_name}', 'w',encoding="utf-8") as file:
+                json.dump(self.original_store, file, indent=4)
+            self.getStoreJson()
+        except Exception as e:
+            print(f'エラーが発生しました: {e}')

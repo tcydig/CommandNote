@@ -1,6 +1,8 @@
 import flet as ft
 class menuBase():
-    def createMenuList(targetList,callbackFunction):
+    def __init__(self):
+        pass
+    def createMenuList(targetList,callbackFunction,deleteButtonFunction):
         return [
             ft.TextButton(
                 content=ft.Row(
@@ -10,8 +12,9 @@ class menuBase():
                 ),
                 on_click=callbackFunction,
                 data=text,
-                width=200,
-                style=ft.ButtonStyle(color=ft.colors.WHITE)
+                # width=200,
+                on_hover=deleteButtonFunction,
+                style=ft.ButtonStyle(color=ft.colors.WHITE),
             ) 
             for text in targetList
         ]

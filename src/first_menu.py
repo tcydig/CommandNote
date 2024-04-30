@@ -14,7 +14,7 @@ class FirstMenu(ft.Container,menuBase):
         self.bgcolor = ft.colors.BLUE_GREY_800
         self.width = 180
 
-        self.menuList = menuBase.createMenuList(self.store.getFirstMenuList(),self.button_clicked)
+        self.menuList = menuBase.createMenuList(self.store.getFirstMenuList(),self.button_clicked,self.control_delete_button)
 
         self.content = ft.Column(
             controls=[
@@ -68,7 +68,7 @@ class FirstMenu(ft.Container,menuBase):
     def hide_input_area(self):
         self.content.controls=self.content.controls[:2]
     def getFirstMenu(self):
-        self.menuList = menuBase.createMenuList(self.store.getFirstMenuList(),self.button_clicked)
+        self.menuList = menuBase.createMenuList(self.store.getFirstMenuList(),self.button_clicked,self.control_delete_button)
 
         self.content = ft.Column(
             controls=[
@@ -82,3 +82,22 @@ class FirstMenu(ft.Container,menuBase):
             ],
             spacing=0
         )
+    def control_delete_button(self,e):
+        index=0
+        for i,v in enumerate(self.menuList):
+            if(v.data==e.control.data):
+                index=i
+                break
+
+        if (e.data=="true"):
+            self.menuList[index].content.controls.append(
+                ft.Container(
+                    ft.IconButton(icon=ft.icons.DELETE,icon_color=ft.colors.RED,icon_size=20),
+                    alignment=ft.alignment.center_right,
+                    expand=True
+                )
+            )
+        else:
+            self.menuList[index].content.controls.pop()
+        
+        self.page.update()

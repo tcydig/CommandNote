@@ -12,7 +12,7 @@ class SecondMenu(ft.Container,menuBase):
         self.page = page
         self.bgcolor = ft.colors.BLUE_GREY_600
         self.width = 180
-        menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked)
+        self.menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked,self.control_delete_button)
 
         self.content = ft.Column(
             controls=[
@@ -21,11 +21,12 @@ class SecondMenu(ft.Container,menuBase):
                     alignment=ft.alignment.center_right
                 ),
                 ft.Column(
-                    controls=menuList,
+                    controls=self.menuList,
                     alignment=ft.MainAxisAlignment.START,
                     horizontal_alignment=ft.CrossAxisAlignment.START
                 )
-            ]
+            ],
+            spacing=0
         )
 
     def button_clicked(self, e):
@@ -37,8 +38,8 @@ class SecondMenu(ft.Container,menuBase):
         
     def change_content(self):
         # 呼び出し元にてself.page.updateを実施
-        menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked)
-        self.store.setSelectedSecondMenu('' if len(menuList)==0 else menuList[0].data)
+        self.menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked,self.control_delete_button)
+        self.store.setSelectedSecondMenu('' if len(self.menuList)==0 else self.menuList[0].data)
         self.content = ft.Column(
             controls=[
                 ft.Container(
@@ -46,16 +47,17 @@ class SecondMenu(ft.Container,menuBase):
                     alignment=ft.alignment.center_right
                 ),
                 ft.Column(
-                    controls=menuList,
+                    controls=self.menuList,
                     alignment=ft.MainAxisAlignment.START,
                     horizontal_alignment=ft.CrossAxisAlignment.START
                 )
-            ]
+            ],
+            spacing=0
         )
         self.note.change_content()
     def add_new_content(self):
         # 呼び出し元にてself.page.updateを実施
-        menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked)
+        self.menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked,self.control_delete_button)
         self.content = ft.Column(
             controls=[
                 ft.Container(
@@ -63,10 +65,30 @@ class SecondMenu(ft.Container,menuBase):
                     alignment=ft.alignment.center_right
                 ),
                 ft.Column(
-                    controls=menuList,
+                    controls=self.menuList,
                     alignment=ft.MainAxisAlignment.START,
                     horizontal_alignment=ft.CrossAxisAlignment.START
                 )
-            ]
+            ],
+            spacing=0
         )
         self.note.change_content()
+    def control_delete_button(self,e):
+        index=0
+        for i,v in enumerate(self.menuList):
+            if(v.data==e.control.data):
+                index=i
+                break
+
+        if (e.data=="true"):
+            self.menuList[index].content.controls.append(
+                ft.Container(
+                    ft.IconButton(icon=ft.icons.DELETE,icon_color=ft.colors.RED,icon_size=20),
+                    alignment=ft.alignment.center_right,
+                    expand=True
+                )
+            )
+        else:
+            self.menuList[index].content.controls.pop()
+        
+        self.page.update()

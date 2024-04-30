@@ -92,7 +92,7 @@ class FirstMenu(ft.Container,menuBase):
         if (e.data=="true"):
             self.menuList[index].content.controls.append(
                 ft.Container(
-                    ft.IconButton(icon=ft.icons.DELETE,icon_color=ft.colors.RED,icon_size=20),
+                    ft.IconButton(icon=ft.icons.DELETE,icon_color=ft.colors.RED,icon_size=20,on_click=self.delete_first_menu,data=e.control.data),
                     alignment=ft.alignment.center_right,
                     expand=True
                 )
@@ -100,4 +100,11 @@ class FirstMenu(ft.Container,menuBase):
         else:
             self.menuList[index].content.controls.pop()
         
+        self.page.update()
+    def delete_first_menu(self,e):
+        self.store.deleteFirstMenu(e.control.data)
+        self.getFirstMenu()
+        if(self.store.getSelectedFirstMenu()==e.control.data):
+            self.store.setSelectedFirstMenu(self.store.getFirstMenuList()[0] if len(self.store.getFirstMenuList())>0 else '')
+            self.second_menu.change_content()
         self.page.update()

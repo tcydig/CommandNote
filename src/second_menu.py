@@ -22,6 +22,7 @@ class SecondMenu(ft.Container,menuBase):
                 ),
                 ft.Column(
                     controls=self.menuList,
+                    scroll=ft.ScrollMode.ALWAYS,
                     alignment=ft.MainAxisAlignment.START,
                     horizontal_alignment=ft.CrossAxisAlignment.START
                 )
@@ -51,6 +52,7 @@ class SecondMenu(ft.Container,menuBase):
                 ),
                 ft.Column(
                     controls=self.menuList,
+                    scroll=ft.ScrollMode.ALWAYS,
                     alignment=ft.MainAxisAlignment.START,
                     horizontal_alignment=ft.CrossAxisAlignment.START
                 )
@@ -69,6 +71,7 @@ class SecondMenu(ft.Container,menuBase):
                 ),
                 ft.Column(
                     controls=self.menuList,
+                    scroll=ft.ScrollMode.ALWAYS,
                     alignment=ft.MainAxisAlignment.START,
                     horizontal_alignment=ft.CrossAxisAlignment.START
                 )

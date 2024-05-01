@@ -32,7 +32,8 @@ class Note(ft.Container):
                             controls=self.note_stage
                         )
                     )
-                ]
+                ],
+                scroll=ft.ScrollMode.ALWAYS,
             )
         else:
             pass
@@ -60,7 +61,8 @@ class Note(ft.Container):
                             controls=self.note_stage
                         )
                     )
-                ]
+                ],
+                scroll=ft.ScrollMode.ALWAYS,
             )
         else:
             self.content=ft.Column()

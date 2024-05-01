@@ -24,6 +24,7 @@ class FirstMenu(ft.Container,menuBase):
                 ),
                 ft.Column(
                     controls=self.menuList,
+                    scroll=ft.ScrollMode.ALWAYS,
                 )
             ],
             spacing=0
@@ -78,6 +79,7 @@ class FirstMenu(ft.Container,menuBase):
                 ),
                 ft.Column(
                     controls=self.menuList,
+                    scroll=ft.ScrollMode.ALWAYS,
                 )
             ],
             spacing=0

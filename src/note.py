@@ -9,7 +9,7 @@ class Note(ft.Container):
         self.page = page
         self.padding=10
         self.bgcolor='#313338'
-        self.alignment=ft.alignment.center_left
+        self.alignment=ft.alignment.top_left
         self.expand=True
 
         self.note_content = self.store.getNote()
@@ -21,7 +21,12 @@ class Note(ft.Container):
             self.content=ft.Column(
                 controls=[
                     ft.Container(
-                        content=ft.IconButton(icon=ft.icons.EDIT_NOTE_OUTLINED,icon_color=ft.colors.BLUE_GREY,on_click=self.edit_note),
+                        content=ft.IconButton(
+                            icon=ft.icons.EDIT_NOTE,
+                            icon_color='#dbdee1',
+                            on_click=self.edit_note,
+                            icon_size=30
+                        ),
                         alignment=ft.alignment.center_left,
                         padding=-10
                     ),
@@ -60,7 +65,12 @@ class Note(ft.Container):
             self.content=ft.Column(
                 controls=[
                     ft.Container(
-                        content=ft.IconButton(icon=ft.icons.EDIT_NOTE_OUTLINED,icon_color=ft.colors.BLUE_GREY,on_click=self.edit_note),
+                        content=ft.IconButton(
+                            icon=ft.icons.EDIT_NOTE,
+                            icon_color='#dbdee1',
+                            on_click=self.edit_note,
+                            icon_size=30
+                        ),
                         alignment=ft.alignment.center_left,
                         padding=-10
                     ),

@@ -38,7 +38,14 @@ class FirstMenu(ft.Container,menuBase):
         if(len(self.content.controls)==3):return
         self.content.controls.extend(
             [
-                ft.TextField(label="Enter text",bgcolor=ft.colors.WHITE,border=ft.InputBorder.NONE,filled=True,hint_text="Enter text",color=ft.colors.BLACK),
+                ft.TextField(
+                    label="Projetc Name",
+                    bgcolor='#383a40',
+                    border=ft.InputBorder.NONE,
+                    filled=True,
+                    hint_text="Enter project name",
+                    color=ft.colors.WHITE,
+                ),
                 ft.Row(
                     controls=[
                         ft.ElevatedButton(text="Save", on_click=self.complete_enter),

@@ -11,7 +11,7 @@ class FirstMenu(ft.Container,menuBase):
         self.second_menu:SecondMenu = second_menu
         self.store:DataStore = store
         self.page = page
-        self.bgcolor = ft.colors.BLUE_GREY_800
+        self.bgcolor = '#1e1f22'
         self.width = 180
 
         self.menuList = menuBase.createMenuList(self.store.getFirstMenuList(),self.button_clicked,self.control_delete_button)
@@ -27,7 +27,7 @@ class FirstMenu(ft.Container,menuBase):
                     scroll=ft.ScrollMode.ALWAYS,
                 )
             ],
-            spacing=0
+            spacing=0,
         )
 
     def button_clicked(self, e):

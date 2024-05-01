@@ -10,7 +10,7 @@ class SecondMenu(ft.Container,menuBase):
         self.command_note = command_note
         self.store:DataStore = store
         self.page = page
-        self.bgcolor = ft.colors.BLUE_GREY_600
+        self.bgcolor = '#2b2d31'
         self.width = 180
         self.menuList = menuBase.createMenuList(self.store.getSecondMenuList(),self.button_clicked,self.control_delete_button)
 

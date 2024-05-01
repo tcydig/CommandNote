@@ -20,7 +20,7 @@ class NoteStage(ft.Container):
                         ft.TextSpan(f'stage{self.index+1} : ',style=ft.TextStyle(size=15)),
                         ft.TextSpan(self.stage['subTitle'],style=ft.TextStyle(size=17))
                     ],
-                    color=ft.colors.BLACK,
+                    color=ft.colors.WHITE,
                     style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE)
                 ),
                 ft.Container(
@@ -35,8 +35,8 @@ class NoteStage(ft.Container):
                     bgcolor=ft.colors.BLACK,
                     alignment=ft.alignment.center_left,
                 ),
-                ft.Text(self.stage['description'],color=ft.colors.BLACK)
+                ft.Text(self.stage['description'],color=ft.colors.WHITE)
             ]
         )
     def clicked_copy(self,e):
-        subprocess.run("clip", input=self.stage['cmd'], text=True)
+        subprocess.run("clip", input=self.stage['cmd'], text=True,creationflags=subprocess.CREATE_NO_WINDOW)

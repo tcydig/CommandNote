@@ -8,15 +8,15 @@ class Note(ft.Container):
         self.store = store
         self.page = page
         self.padding=10
-        self.bgcolor=ft.colors.GREY_400
+        self.bgcolor='#313338'
         self.alignment=ft.alignment.center_left
         self.expand=True
 
         self.note_content = self.store.getNote()
 
         if (any(self.note_content)):
-            self.title=ft.Text(self.note_content['title'],color=ft.colors.BLACK,size=35,weight=ft.FontWeight.W_600)
-            self.summary=ft.Text(self.note_content['summary'],color=ft.colors.BLACK,size=20,weight=ft.FontWeight.W_400)
+            self.title=ft.Text(self.note_content['title'],color=ft.colors.WHITE,size=35,weight=ft.FontWeight.W_600)
+            self.summary=ft.Text(self.note_content['summary'],color=ft.colors.WHITE,size=20,weight=ft.FontWeight.W_400)
             self.note_stage=self.create_stage()
             self.content=ft.Column(
                 controls=[
@@ -43,8 +43,18 @@ class Note(ft.Container):
         self.note_content=self.store.getNote()
 
         if (any(self.note_content)):
-            self.title=ft.Text(self.note_content['title'],color=ft.colors.BLACK,size=35,weight=ft.FontWeight.W_600)
-            self.summary=ft.Text(self.note_content['summary'],color=ft.colors.BLACK,size=20,weight=ft.FontWeight.W_400)
+            self.title=ft.Text(
+                self.note_content['title'],
+                color=ft.colors.WHITE,
+                size=35,
+                weight=ft.FontWeight.W_600
+            )
+            self.summary=ft.Text(
+                self.note_content['summary'],
+                color=ft.colors.WHITE,
+                size=20,
+                weight=ft.FontWeight.W_400
+            )
             self.note_stage=self.create_stage()
             
             self.content=ft.Column(
@@ -68,8 +78,20 @@ class Note(ft.Container):
             self.content=ft.Column()
     def add_new_content(self,change_second_menu_function):
         self.change_second_menu_function=change_second_menu_function
-        self.title=ft.TextField(label='Title',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=400)
-        self.summary=ft.TextField(label='Summary',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=700)
+        self.title=ft.TextField(
+            label='Title',
+            color=ft.colors.WHITE,
+            bgcolor='#383a40',
+            border=ft.InputBorder.UNDERLINE,
+            width=400
+        )
+        self.summary=ft.TextField(
+            label='Summary',
+            color=ft.colors.WHITE,
+            bgcolor='#383a40',
+            border=ft.InputBorder.UNDERLINE,
+            width=700
+        )
         self.stageList=[EditNoteStage(0,self,self.store,self.page)]
         self.content=ft.Column(
             controls=[
@@ -112,8 +134,22 @@ class Note(ft.Container):
         self.stageList.append(EditNoteStage(len(self.stageList),self,self.store,self.page))
         self.page.update()
     def edit_note(self,e):
-        self.title=ft.TextField(label='Title',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=400,value=self.title.value)
-        self.summary=ft.TextField(label='Summary',color=ft.colors.BLACK,bgcolor=ft.colors.WHITE,width=700,value=self.summary.value)
+        self.title=ft.TextField(
+            label='Title',
+            color=ft.colors.WHITE,
+            bgcolor='#383a40',
+            border=ft.InputBorder.UNDERLINE,
+            width=400,
+            value=self.title.value
+        )
+        self.summary=ft.TextField(
+            label='Summary',
+            color=ft.colors.WHITE,
+            bgcolor='#383a40',
+            border=ft.InputBorder.UNDERLINE,
+            width=700,
+            value=self.summary.value
+        )
         self.stageList=[EditNoteStage(i,self,self.store,self.page,self.note_content['stage'][i]) for i in range(len(self.note_content['stage']))]
         self.content=ft.Column(
             controls=[

@@ -2,7 +2,9 @@
 
 ## Summary
 Command Note is a windows application that note many command and command flow of some objects.
-<video controls src="./assets/commandNoteDemo.mp4" muted="false"></video>
+
+https://github.com/tcydig/CommandNote/assets/53115840/bf56177e-5932-4cf5-8033-e536f3035614
+
 
 ## How to download it
 There is a donwload link in relase section of this repository.
